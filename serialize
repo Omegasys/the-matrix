@@ -2,12 +2,15 @@ struct Point {
     float x, y, z;
 
     void serialize(std::vector<uint8_t>& buffer) const {
-        buffer.insert(buffer.end(), reinterpret_cast<const uint8_t*>(&x), reinterpret_cast<const uint8_t*>(&x) + sizeof(x));
-        buffer.insert(buffer.end(), reinterpret_cast<const uint8_t*>(&y), reinterpret_cast<const uint8_t*>(&y) + sizeof(y));
-        buffer.insert(buffer.end(), reinterpret_cast<const uint8_t*>(&z), reinterpret_cast<const uint8_t*>(&z) + sizeof(z));
+      buffer.insert(buffer.end(), reinterpret_cast<const uint8_t*>(&x), reinterpret_cast<const uint8_t*>(&x) + sizeof(x));
+      buffer.insert(buffer.end(), reinterpret_cast<const uint8_t*>(&y), reinterpret_cast<const uint8_t*>(&y) + sizeof(y));
+      buffer.insert(buffer.end(), reinterpret_cast<const uint8_t*>(&z), reinterpret_cast<const uint8_t*>(&z) + sizeof(z));
     }
 
     static Point deserialize(const std::vector<uint8_t>& buffer, size_t offset) {
-        Point point;
-        std::memcpy(&point.x, buffer.data() + offset, sizeof(point.x));
-        std::memcpy(&point.y,
+      Point point;
+      std::memcpy(&point.x, buffer.data() + offset, sizeof(point.x));
+      std::memcpy(&point.y, buffer.data() + offset, sizeof(point.y));
+      std::memcpy(&point.z, buffer.data() + offset, sizeof(point.z));
+    }
+}
